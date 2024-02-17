@@ -131,7 +131,7 @@ def main(**kwargs):
     list_of_images_path = []
 
     # Получаем список всех файлов в папке annotations
-    annotation_files = os.listdir(coco_annotations_path)
+    annotation_files = [file for file in os.listdir(coco_annotations_path) if file.endswith(".json")]
 
     shutil.rmtree(yolo_dataset_path, ignore_errors=True) # очищаем старые данные в папке
 
