@@ -1,3 +1,39 @@
+#  YOLOv8-seg converter for instance segmentation (YOLOv8-seg) png masks converter
+
+Репозиторий позволяет преобразовать разметку формата PNG маски в формат, поддерживаемый для обучения моделей YOLOv8-seg (инстанс сегментация).
+
+Ключевое применение репозитория -> работа с выгруженной разметкой полигонов из приложения CVAT в формате PNG маски.
+
+Если же используете без CVAT, то убедитесь перед запуском, что ваша папка с PNG датасетом имеет такую структуру:
+```
+COCO_dataset/
+|-- annotations/
+|   |-- instances_train.png
+|   |-- instances_val.png
+|-- images/
+|   |-- image1.jpg
+|   |-- image2.jpg
+|   |-- ...
+```
+
+#  YOLOv8-obb converter for oriented bounding box detection (YOLOv8-obb) bbox converter
+
+Репозиторий позволяет преобразовать разметку bbox формата YOLO8 в формат, поддерживаемый для обучения моделей YOLOv8-obb (детекция повернутых боксов).
+
+Ключевое применение репозитория -> работа с выгруженной разметкой неповернутых прямоугольников в случае с YOLOv8 из приложения CVAT в формате для обучения моделей YOLOv8-obb (детекция повернутых боксов).
+
+Если же используете без CVAT, то убедитесь перед запуском, что ваша папка с COCO датасетом имеет такую структуру:
+```
+COCO_dataset/
+|-- annotations/
+|   |-- train.txt
+|   |-- val.txt
+|-- images/
+|   |-- image1.jpg
+|   |-- image2.jpg
+|   |-- ...
+```
+
 #  COCO to YOLO converter for instance segmentation (YOLOv8-seg) and oriented bounding box detection (YOLOv8-obb)
 
 Репозиторий позволяет преобразовать разметку формата COCO в формат, поддерживаемый для обучения моделей YOLOv8-seg (инстанс сегментация) и YOLOv8-obb (детекция повернутых боксов).
@@ -30,6 +66,15 @@ pip install -r requirements.txt
 ## Как запускать код:
 
 __Классический подход c предустановленным в CVAT разделением на train/val/test (у тасок определен Subset):__
+
+```
+python coco_to_yolo_seg.py --coco_dataset="dataset_folder"
+```
+
+```
+python coco_to_yolo_obb.py --coco_dataset="dataset_folder"
+```
+
 ```
 python coco_to_yolo.py --coco_dataset="dataset_folder"
 ```
@@ -100,6 +145,15 @@ pip install -r requirements.txt
 ## How to run the code:
 
 __Classic approach with pre-defined train/val/test split from CVAT (Tasks have a defined Subset in CVAT):__
+
+```
+python coco_to_yolo_seg.py --coco_dataset="dataset_folder"
+```
+
+```
+python coco_to_yolo_obb.py --coco_dataset="dataset_folder"
+```
+
 ```
 python coco_to_yolo.py --coco_dataset="dataset_folder"
 ```
