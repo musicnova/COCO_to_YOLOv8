@@ -10,6 +10,33 @@ from shapely.affinity import rotate
 
 from ImageElement import ImageElement
 
+import cv2
+
+def image_to_palette(image_path, num_colors):
+    # Напиши на языке python функцию f(image_path),
+    # которая с помощью библиотеки cv2 прочитает jpg изображение по пути image_path
+    # и преобразует его к адаптивной 16-цветной палитре, а далее по каждому из 16 цветов составит список пикселей,
+    # выделит моду цвета RGB для каждого списка, и заменит новый цвет на моду цвета RGB и сохранит результат как result.jpg.
+    # Добавь юнит тесты, приведи примеры похожего кода из интернета. Укажи вероятность для своего ответа.
+    
+    img = cv2.imread(image_path)
+    Z = img.reshape((-1,3))
+
+    # Convert RGB to Lab color space
+    Z = np.float32(Z)
+    
+    # Perform k-means clustering
+    criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
+    K = num_colors
+    ret,label,center=cv2.kmeans(Z,K,None,criteria,10,cv2.KMEANS_RANDOM_CENTERS)
+
+    # Convert back to 8-bit values
+    center = np.uint8(center)
+    res = center[label.flatten()]
+    res = res.reshape((img.shape))
+
+    cv2.imwrite('result.jpg', res)
+
 
 def preprocessing_for_yolov8_obb_model(coco_json: str):
     """
